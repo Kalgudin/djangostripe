@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'payments.apps.PaymentsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'djangostripe.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,14 +118,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51MbKfeKadNl3BDmNWHmruAywJlTzBv7fLizQyLmJ33ZrxTqf8fAEAytui5bQkwAKfoXUfq3A4s9dDqmQ2BS9KsTH00aP7J4hjG'
+STRIPE_SECRET_KEY = 'sk_test_51MbKfeKadNl3BDmNbXzBP6K7RX5phDbwI95dnESfHNWsm0lLiFVaCq1A8fkDWDzdLRI3RLWkTnSM2RuaxZZ4gATq00GcpTOInM'
+STRIPE_ENDPOINT_SECRET = 'whsec_9aa725721745361938b0f7cf1dc25d255a2bdf5fed76eaac1428843a5dc4136b'
 
 #######################
 #  cd PycharmProjects\djangostripe
 #  venv\scripts\activate
+
+#  > Done! The Stripe CLI is configured for Nick_Ka with account id acct_1MbKfeKadNl3BDmN
