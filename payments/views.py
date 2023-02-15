@@ -1,16 +1,30 @@
-# payments/views.py
 import stripe
-from django.conf import settings # new
-from django.http.response import JsonResponse, HttpResponse  # new
-from django.views.decorators.csrf import csrf_exempt # new
+from django.conf import settings
+from django.http.response import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
+
+from payments.models import Items, Order
 
 
 class HomePageView(TemplateView):
+    prod = [Items.objects.get(id=1), Items.objects.get(id=2), ]
+    print(prod)
+    instance = Order.objects.create(total_price=100)
+    instance.items.set(prod)
+    print('*****************')
+    print(instance.items.list())
+
+    print('*****************')
+    for item in Items.objects.all():
+        print(item)
+    for ord in Order.objects.all().values_list():
+        print(ord)
+        # for it in ord.items:
+        #     print(f'item - {it.name}')
     template_name = 'home.html'
 
 
-# new
 @csrf_exempt
 def stripe_config(request):
     if request.method == 'GET':
